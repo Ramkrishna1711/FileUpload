@@ -13,7 +13,7 @@ namespace FileUpload.Controllers
     public class FileController : ControllerBase
     {
         private readonly IFileService fileService;
-
+        ILog fileLog = LogManager.GetLogger("FileUpload");
         public FileController(IFileService fileService)
         {
             this.fileService = fileService;
@@ -22,6 +22,7 @@ namespace FileUpload.Controllers
         [Route("Index")]
         public IActionResult Index()
         {
+            fileLog.InfoFormat("Application started");
             return Ok("File Upload Solution");
         }
 
@@ -32,13 +33,9 @@ namespace FileUpload.Controllers
         {
             ILog fileLog = LogManager.GetLogger("FileUpload");
 
-
-            //var filename = ContentDispositionHeaderValue.Parse(FormFile.ContentDisposition).FileName.Trim('"');
             var filename = FormFile.FileName.Trim('"');
-
-
-            fileLog.InfoFormat($"Upload file API Called for file name  {1}", filename);
-
+            
+            fileLog.InfoFormat($"Upload file API Called for file name " + "'" + filename + "'");
 
             //get extension
             string extension = Path.GetExtension(filename);
@@ -66,14 +63,23 @@ namespace FileUpload.Controllers
 
                 if (result.Response.StatusCode == MessageStatusCode.Success)
                 {
+                    fileLog.InfoFormat($"Upload file successfully with all valid line.");
                     return Ok(result);
                 }
-
-                return BadRequest(result);
-
+                else if (result.Response.StatusCode == MessageStatusCode.BadRequest)
+                {
+                    fileLog.ErrorFormat($"Bad request in upload file data.");
+                    return BadRequest(result);
+                }
+                else
+                {
+                    fileLog.ErrorFormat($"Error in upload file data.");
+                    return BadRequest(result);
+                }
             }
             else
             {
+                fileLog.ErrorFormat($"Invalid file extension " + "'" + extension + "'");
                 return BadRequest("Invalid file extension");
             }
         }

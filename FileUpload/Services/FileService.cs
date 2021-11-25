@@ -14,11 +14,6 @@ namespace FileUpload.Services
     }
     public class FileService : IFileService
     {
-        public FileService()
-        {
-
-        }
-
         public async Task<FileUploadResult> FileUpload(string filePath)
         {
             try
@@ -27,7 +22,6 @@ namespace FileUpload.Services
                 response.FileValid = true;
 
                 FileStream fileStream = new FileStream(filePath, FileMode.Open);
-                var accountDetailList = new List<AccountDetail>();
 
                 using (StreamReader reader = new StreamReader(fileStream))
                 {
@@ -38,8 +32,6 @@ namespace FileUpload.Services
 
                     while ((line = reader.ReadLine()) != null)
                     {
-                        var accountDetail = new AccountDetail();
-
                         string[] words = line.Split(' ');
                         if (words.Length == 2) //One line should contain only two words(Name & Number) if other than it then line is not valid
                         {
@@ -64,12 +56,6 @@ namespace FileUpload.Services
                                 errorString.Add("Account number -not valid for " + (i + 1) + " line " + line);
                                 response.FileValid = false;
                             }
-                            else
-                            {
-                                accountDetail.FirstName = words[0];
-                                accountDetail.AccountNumber = words[1];
-                            }
-
                         }
                         else
                         {
@@ -77,12 +63,9 @@ namespace FileUpload.Services
                             response.FileValid = false;
                         }
 
-                        accountDetailList.Add(accountDetail);
                         i++;
                     }
-
                     response.InvalidLines = errorString;
-
                 }
 
                 if (response.FileValid)
@@ -102,7 +85,5 @@ namespace FileUpload.Services
                 return new FileUploadResult { Response = new Response { StatusCode = MessageStatusCode.Error, MessageDescription = ex.Message } };
             }
         }
-
-
     }
 }

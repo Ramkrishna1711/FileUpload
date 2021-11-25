@@ -15,19 +15,6 @@ namespace UnitTest_FileUpload
         public FileUploadServiceFake()
         {
 
-            _accountDetail = new AccountDetail();
-            {
-                new AccountDetail()
-                {
-                    FirstName = "Thomas",
-                    AccountNumber = "32999921"
-                };
-                new AccountDetail()
-                {
-                    FirstName = "Richard",
-                    AccountNumber = "3293982"
-                };
-            };
         }
 
         public async Task<FileUploadResult> FileUpload(string filePath)
@@ -38,7 +25,6 @@ namespace UnitTest_FileUpload
                 response.FileValid = true;
 
                 FileStream fileStream = new FileStream(filePath, FileMode.Open);
-                var accountDetailList = new List<AccountDetail>();
 
                 using (StreamReader reader = new StreamReader(fileStream))
                 {
@@ -49,8 +35,6 @@ namespace UnitTest_FileUpload
 
                     while ((line = reader.ReadLine()) != null)
                     {
-                        var accountDetail = new AccountDetail();
-
                         string[] words = line.Split(' ');
                         if (words.Length == 2) //One line should contain only two words(Name & Number) if other than it then line is not valid
                         {
@@ -75,12 +59,6 @@ namespace UnitTest_FileUpload
                                 errorString.Add("Account number -not valid for " + (i + 1) + " line " + line);
                                 response.FileValid = false;
                             }
-                            else
-                            {
-                                accountDetail.FirstName = words[0];
-                                accountDetail.AccountNumber = words[1];
-                            }
-
                         }
                         else
                         {
@@ -88,12 +66,9 @@ namespace UnitTest_FileUpload
                             response.FileValid = false;
                         }
 
-                        accountDetailList.Add(accountDetail);
                         i++;
                     }
-
                     response.InvalidLines = errorString;
-
                 }
 
                 if (response.FileValid)
@@ -106,7 +81,6 @@ namespace UnitTest_FileUpload
                     response.Response = new Response { StatusCode = MessageStatusCode.BadRequest, MessageDescription = "File Upload error" };
                     return response;
                 }
-
             }
 
             catch (Exception ex)

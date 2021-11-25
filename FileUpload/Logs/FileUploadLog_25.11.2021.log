@@ -1,0 +1,12 @@
+2021-11-25 16:15:58,668 [4] INFO FileUpload - Application started
+2021-11-25 16:16:14,757 [4] INFO FileUpload - Upload file API Called for file name 'TestFile.txt'
+2021-11-25 16:16:14,808 [8] ERROR FileUpload - Error in upload file
+2021-11-25 16:16:24,151 [4] INFO FileUpload - Upload file API Called for file name 'TestFileValidData.txt'
+2021-11-25 16:16:24,155 [10] INFO FileUpload - Upload file successfully with all valid line
+2021-11-25 16:24:01,031 [4] INFO FileUpload - Application started
+2021-11-25 16:24:08,894 [7] INFO FileUpload - Upload file API Called for file name 'TestFileValidData.txt'
+2021-11-25 16:24:08,982 [4] INFO FileUpload - Upload file successfully with all valid line.
+2021-11-25 16:24:16,471 [4] INFO FileUpload - Upload file API Called for file name 'TestFile.txt'
+2021-11-25 16:24:16,483 [7] ERROR FileUpload - Bad request in upload file data.
+2021-11-25 16:24:40,895 [5] INFO FileUpload - Upload file API Called for file name 'UsersList.xlsx'
+2021-11-25 16:24:40,895 [5] ERROR FileUpload - Invalid file extension '.xlsx'
