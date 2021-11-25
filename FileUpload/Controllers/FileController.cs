@@ -12,7 +12,6 @@ namespace FileUpload.Controllers
     [Route("[controller]")]
     public class FileController : ControllerBase
     {
-        //private readonly ILogger<FileController> _logger;
         private readonly IFileService fileService;
 
         public FileController(IFileService fileService)
@@ -20,7 +19,7 @@ namespace FileUpload.Controllers
             this.fileService = fileService;
         }
 
-
+        [Route("Index")]
         public IActionResult Index()
         {
             return Ok("File Upload Solution");

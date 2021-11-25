@@ -56,7 +56,7 @@ namespace FileUpload
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
-                endpoints.MapControllerRoute(name: "default", pattern: "{controller=File}/{action=Index}");
+                endpoints.MapControllerRoute(name: "default", pattern: "{controller=File}/{action=Index}/{id?}");
                 endpoints.MapControllers();
             });
         }
