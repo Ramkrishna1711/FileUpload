@@ -34,7 +34,7 @@ namespace UnitTest_FileUpload
             IFormFile file = new FormFile(stream, 0, stream.Length, "file_form", fileName);
 
             // Act
-            IActionResult response = await _controller.FileImport(file);   //trying to pass empty id here
+            IActionResult response = await _controller.FileImport(file);
 
             // Assert
             ObjectResult objectResponse = Assert.IsType<OkObjectResult>(response);
@@ -150,7 +150,7 @@ namespace UnitTest_FileUpload
             IFormFile file = new FormFile(stream, 0, stream.Length, "file_form", fileName);
 
             // Act
-            IActionResult response = await _controller.FileImport(file);   //trying to pass empty id here
+            IActionResult response = await _controller.FileImport(file);
 
             // Assert
             ObjectResult objectResponse = Assert.IsType<BadRequestObjectResult>(response);

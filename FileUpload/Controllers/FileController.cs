@@ -13,7 +13,7 @@ namespace FileUpload.Controllers
     public class FileController : ControllerBase
     {
         private readonly IFileService fileService;
-        ILog fileLog = LogManager.GetLogger("FileUpload");
+        readonly ILog FileLog = LogManager.GetLogger("FileUpload");
         public FileController(IFileService fileService)
         {
             this.fileService = fileService;
@@ -22,7 +22,7 @@ namespace FileUpload.Controllers
         [Route("Index")]
         public IActionResult Index()
         {
-            fileLog.InfoFormat("Application started");
+            FileLog.InfoFormat("Application started");
             return Ok("File Upload Solution");
         }
 
